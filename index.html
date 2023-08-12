@@ -1,20 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://unpkg.com/vue@3"></script>
-</head>
-<body>
-    <div id="app"></div>
+    <style>
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #app {
+        display: grid;
+        place-items: center;
+        height: 100%;
+      }
+      .text-green {
+        color: green;
+      }
+      .text-red {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <button :class="ButtonClass" @click="toggle" >Click Me</button>
+    </div>
     <script>
-        Vue.createApp({
-            data(){
-                return {
-                    message : "checking"
-                };
-            }
-        }).mount('#app');
+      Vue.createApp({
+        data() {
+          return {
+            ButtonClass: "text-green",
+          };
+        },
+        methods: {
+          toggle() {
+            this.ButtonClass =  this.ButtonClass === "text-green" ? "text-red" : "text-green";
+          },
+        },
+      }).mount("#app");
     </script>
-</body>
+  </body>
 </html>
