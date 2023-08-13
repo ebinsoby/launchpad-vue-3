@@ -1,49 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://unpkg.com/vue@3"></script>
-    <style>
-      html,
-      body {
-        height: 100%;
-      }
-      body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-      #app {
-        display: grid;
-        place-items: center;
-        height: 100%;
-      }
-      .text-green {
-        color: green;
-      }
-      .text-red {
-        color: red;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="app">
-      <button :class="ButtonClass" @click="toggle" >Click Me</button>
-    </div>
-    <script>
-      Vue.createApp({
-        data() {
-          return {
-            ButtonClass: "text-green",
-          };
+<html lang="en" class="h-full">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://unpkg.com/vue@3"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+<body class="h-full m-0 p-0">
+  <div id="app" class="h-full grid place-items-center">
+    <section v-show="inProgress.length">
+      <h2 class="font-bold mb-2">In Progress</h2>
+      <ul>
+        <li v-for="assignment in inProgress" :key="assignment.id">
+          <label>{{assignment.name}} <input type="checkbox" v-model="assignment.completed"></label>
+        </li>
+      </ul>
+    </section>
+    <section v-show="completed.length">
+      <h2 class="font-bold mb-2">Completed</h2>
+      <ul>
+        <li v-for="item in completed" :key="item.id">
+          <label>{{item.name}} <input type="checkbox" v-model="item.completed"></label>
+        </li>
+      </ul>
+    </section>
+  </div>
+  <script>
+    let app = {
+      data() {
+        return {
+          assignments: [
+            { name: 'Chapter 1', completed: true, id:1 },
+            { name: 'Chapter 2', completed: false, id:2 },
+            { name: 'Home work', completed: false, id:3 },
+            { name: 'Plays', completed: true, id:4 },
+          ]
+        }
+      },
+      computed: {
+        inProgress() {
+          return this.assignments.filter((assignment) => !assignment.completed);
         },
-        methods: {
-          toggle() {
-            this.ButtonClass =  this.ButtonClass === "text-green" ? "text-red" : "text-green";
-          },
-        },
-      }).mount("#app");
-    </script>
-  </body>
+        completed() {
+          return this.assignments.filter((assignment) => assignment.completed);
+        }
+      }
+    }
+    Vue.createApp(app).mount("#app");
+  </script>
+</body>
+
 </html>
