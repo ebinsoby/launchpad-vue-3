@@ -5,7 +5,7 @@ export default {
   template: `<section v-show="assignments.length">
     <h2 class="font-bold mb-2">{{title}}
     <span>({{assignments.length}})</span></h2>
-    <assignment-tags :initialTags="this.assignments.map((assignment)=>assignment.tag)" @change="currentTag = $event" :currentTag="currentTag"/>
+    <assignment-tags :initialTags="this.assignments.map((assignment)=>assignment.tag)" v-model:currentTag="currentTag" />
     <ul class="border border-gray-600 divide-y divide-gray-600 mt-6">
       <assignment v-for="assignment in filteredAssignments" :assignment=assignment :key="assignment.id"></assignment>
     </ul>
